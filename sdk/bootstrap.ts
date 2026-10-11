@@ -86,14 +86,11 @@ export async function bootstrap(
     })
     .rpc();
 
-  // Borneo checkout config (idempotent: one per deployment)
-  const config = pda.config();
-  const existing = await checkout.account.config.fetchNullable(config);
-  if (!existing) {
-    await checkout.methods.initConfig(quoteAuthority.publicKey).accountsPartial({ admin: admin.publicKey, usdcMint, config }).rpc();
-  } else {
-    throw new Error("Borneo config already exists on this cluster; restart the validator with --reset for a fresh demo world");
-  }
+  // Borneo checkout config for this USDC mint
+  await checkout.methods
+    .initConfig(quoteAuthority.publicKey)
+    .accountsPartial({ admin: admin.publicKey, usdcMint, config: pda.config(usdcMint) })
+    .rpc();
 
   // Buyer: 10 NVDAx and a little cash
   const buyerNvda = await getOrCreateAssociatedTokenAccount(conn, admin, collateralMint, buyer.publicKey);

@@ -42,6 +42,10 @@
                   105,
                   103
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "usdc_mint"
               }
             ]
           }
@@ -96,6 +100,11 @@
                   105,
                   103
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "config.usdc_mint",
+                "account": "Config"
               }
             ]
           }
@@ -195,6 +204,11 @@
                   105,
                   103
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "config.usdc_mint",
+                "account": "Config"
               }
             ]
           }

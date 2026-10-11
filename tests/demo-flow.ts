@@ -42,7 +42,7 @@ describe("Borneo x Intatto: the demo story", () => {
       )
       .accountsPartial({
         quoteAuthority: w.quoteAuthority.publicKey,
-        config: pda.config(),
+        config: pda.config(w.usdcMint),
         buyer: w.buyer.publicKey,
         quote,
       })
@@ -85,7 +85,7 @@ describe("Borneo x Intatto: the demo story", () => {
         .lockQuote(quoteId, [{ merchant: fake.publicKey, amount: usdc(1), skuHash: skuHash("x", "y") }], new BN(Math.floor(Date.now() / 1000) + 600))
         .accountsPartial({
           quoteAuthority: w.buyer.publicKey,
-          config: pda.config(),
+          config: pda.config(w.usdcMint),
           buyer: w.buyer.publicKey,
           quote: pda.quote(w.buyer.publicKey, Uint8Array.from(quoteId)),
         })

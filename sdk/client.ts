@@ -65,7 +65,8 @@ export const pda = {
       [Buffer.from("position"), market.toBuffer(), owner.toBuffer()],
       INTATTO_ID,
     )[0],
-  config: () => PublicKey.findProgramAddressSync([Buffer.from("config")], CHECKOUT_ID)[0],
+  config: (usdcMint: PublicKey) =>
+    PublicKey.findProgramAddressSync([Buffer.from("config"), usdcMint.toBuffer()], CHECKOUT_ID)[0],
   quote: (buyer: PublicKey, quoteId: Uint8Array) =>
     PublicKey.findProgramAddressSync(
       [Buffer.from("quote"), buyer.toBuffer(), Buffer.from(quoteId)],

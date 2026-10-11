@@ -48,6 +48,10 @@ export type BorneoCheckout = {
                   105,
                   103
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "usdcMint"
               }
             ]
           }
@@ -102,6 +106,11 @@ export type BorneoCheckout = {
                   105,
                   103
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "config.usdc_mint",
+                "account": "config"
               }
             ]
           }
@@ -201,6 +210,11 @@ export type BorneoCheckout = {
                   105,
                   103
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "config.usdc_mint",
+                "account": "config"
               }
             ]
           }

@@ -130,7 +130,7 @@ pub struct InitConfig<'info> {
     #[account(mut)]
     pub admin: Signer<'info>,
     pub usdc_mint: InterfaceAccount<'info, Mint>,
-    #[account(init, payer = admin, space = 8 + Config::INIT_SPACE, seeds = [b"config"], bump)]
+    #[account(init, payer = admin, space = 8 + Config::INIT_SPACE, seeds = [b"config", usdc_mint.key().as_ref()], bump)]
     pub config: Account<'info, Config>,
     pub system_program: Program<'info, System>,
 }
@@ -138,7 +138,7 @@ pub struct InitConfig<'info> {
 #[derive(Accounts)]
 pub struct SetQuoteAuthority<'info> {
     pub admin: Signer<'info>,
-    #[account(mut, has_one = admin @ CheckoutError::Unauthorized, seeds = [b"config"], bump = config.bump)]
+    #[account(mut, has_one = admin @ CheckoutError::Unauthorized, seeds = [b"config", config.usdc_mint.as_ref()], bump = config.bump)]
     pub config: Account<'info, Config>,
 }
 
@@ -147,7 +147,7 @@ pub struct SetQuoteAuthority<'info> {
 pub struct LockQuote<'info> {
     #[account(mut)]
     pub quote_authority: Signer<'info>,
-    #[account(has_one = quote_authority @ CheckoutError::Unauthorized, seeds = [b"config"], bump = config.bump)]
+    #[account(has_one = quote_authority @ CheckoutError::Unauthorized, seeds = [b"config", config.usdc_mint.as_ref()], bump = config.bump)]
     pub config: Account<'info, Config>,
     /// CHECK: the buyer this quote is for; only this key can settle it.
     pub buyer: UncheckedAccount<'info>,
